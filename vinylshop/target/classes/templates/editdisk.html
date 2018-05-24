@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Vinyl Disc Shop</title>
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body class="m-4">
+	<h1>Edit the disc</h1>
+	 <div class="card-body p-3 mb-2 bg-info text-white" style="width: 30%" >
+	<form th:object="${disk}" th:action="@{../saveeditted}" action="#" method="post">
+		
+			<input type="hidden" th:field="*{id}" class="form-control"/>
+				<label for="name">Name</label>
+			<input type="text" id="name" th:field="*{name}" />
+			<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+		  	<label for="author">Author</label>
+			<input type="text" id="author" th:field="*{author}" />
+			<div th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Author Error</div>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+		  	<label for="year">Year</label>
+			<input type="text" th:field="*{year}" />
+			<div th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year Error</div>
+			<div style="clear: both; display: block; height: 10px;"></div>	
+			
+			<label for="code">Code</label>
+			<input type="text" th:field="*{code}" />
+			<div th:if="${#fields.hasErrors('code')}" th:errors="*{code}">Code Error</div>
+			<div style="clear: both; display: block; height: 10px;"></div>	
+			
+			<label for="price">Price</label>
+			<input type="text" th:field="*{price}" />
+			<div th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</div>
+			<div style="clear: both; display: block; height: 10px;"></div>	
+							
+		  	<label for="category">Category</label>
+			 <select style="width: 30%" id="category" th:field="*{category}" class="form-control">
+       			<option th:each="category: ${categories}" th:value="${category.categoryid}" th:text="${category.categoryname}"></option>
+    		</select>
+			
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="submit" value="Save" class="btn btn-dark"/>
+		</form>
+	</div>
+</body>
+</html>

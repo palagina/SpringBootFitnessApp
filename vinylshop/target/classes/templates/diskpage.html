@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <title>Vinyl Disc Shop</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css}" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+</head>
+
+<body class="m-4">
+	<h1>Disc database</h1>
+	<a href="/download">Get Excel list</a>
+	<div class="float-right" style="padding:10px 0">
+		<form th:action="@{/logout}" method="post">
+		<p th:inline="text">You are logged in as: [[${#httpServletRequest.remoteUser}]]</p>
+			<input type="submit" value="Sign Out" class="btn btn-dark"/>
+		</form>
+	</div>
+	
+    <table class="table table-bordered table-striped table-info table-hover ">
+		<thead class="thead-dark">
+		<tr>
+		    <th style="width: 25%">Name</th>
+		    <th>Author</th>
+		    <th>Year</th>
+		    <th>Code</th>
+		    <th>Price</th>
+		     <th>Category</th>
+		     <th sec:authorize="hasRole('ADMIN')"> </th>
+		     <th sec:authorize="hasRole('ADMIN')"> </th>
+		</tr>  
+		 </thead>
+  <tbody>
+    	<tr th:each = "disks : ${disks}">
+    		<td style="font-weight:bold" th:text="${disks.name}"></td>
+    		<td th:text="${disks.author}"></td>
+    		<td th:text="${disks.year}"></td> 	
+    		<td th:text="${disks.code}"></td> 
+    		<td th:text="${disks.price}"></td>
+    		<td th:text="${disks.category.categoryname}"></td> 
+    		<td sec:authorize="hasRole('ADMIN')" ><button type="button" class="btn btn-dark"><a th:href="@{/delete/{id}(id=${disks.id})}">Delete</a></button></td>  	   
+ 			<td sec:authorize="hasRole('ADMIN')" ><button type="button" class="btn btn-dark" ><a th:href="@{/edit/{id}(id=${disks.id})}">Edit</a></button></td> 		
+   		
+    	</tr></tbody>
+     </table>
+     
+ <button sec:authorize="hasRole('ADMIN')"  type="button" class="btn btn-dark"> <a href="/add">Add new disc</a>  </button> 
+</body>
+</html>
